@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medición de Habilidades de Lectura</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <h1>Medición de Habilidades de Lectura</h1>
+        <p>Evaluamos habilidades de lectura de manera efectiva.</p>
+    </header>
+
+    <main>
+        <section class="description">
+            <h2>¿Qué es este instrumento?</h2>
+            <p>Este instrumento permite medir la velocidad de procesamiento, la conciencia fonológica y el principio alfabético en estudiantes.</p>
+        </section>
+
+        <!-- Sección de Bloques -->
+        <section class="blocks">
+            <div class="block" onclick="toggleMenu('menu1')">Primero
+                <div id="menu1" class="dropdown-menu" style="display: none;">
+                    <div onclick="showTable('0-1')">0-1</div>
+                </div>
+            </div>
+            <div class="block" onclick="toggleMenu('menu2')">Segundo
+                <div id="menu2" class="dropdown-menu" style="display: none;">
+                    <div onclick="showTable('2-1')">2-1</div>
+                </div>
+            </div>
+            <div class="block" onclick="toggleMenu('menu3')">Tercero
+                <div id="menu3" class="dropdown-menu" style="display: none;">
+                    <div onclick="showTable('3-1')">3-1</div>
+                </div>
+            </div>
+            <div class="block" onclick="toggleMenu('menu4')">Cuarto
+                <div id="menu4" class="dropdown-menu" style="display: none;">
+                    <div onclick="showTable('4-1')">4-1</div>
+                </div>
+            </div>
+            <div class="block" onclick="toggleMenu('menu5')">Quinto
+                <div id="menu5" class="dropdown-menu" style="display: none;">
+                    <div onclick="showTable('5-1')">5-1</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tabla de Estudiantes -->
+        <section id="studentTableSection" style="display: none;">
+            <h2>Tabla de Estudiantes</h2>
+            <input type="text" id="filterInput" placeholder="Buscar estudiante..." oninput="filterResults()">
+            <table id="studentTable">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Nota</th>
+                        <th>Desempeño</th>
+                        <th>Nivel de Discapacidad</th>
+                        <th>Estrategias</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: #3498db;"> <!-- Superior -->
+                        <td>Juan Pérez</td>
+                        <td>85</td>
+                        <td>Alto</td>
+                        <td>Nivel Adecuado</td>
+                        <td>Fomentar la lectura diaria.</td>
+                    </tr>
+                    <tr style="background-color: #2ecc71;"> <!-- Alto -->
+                        <td>María López</td>
+                        <td>60</td>
+                        <td>Básico</td>
+                        <td>Atención Requerida</td>
+                        <td>Utilizar juegos educativos.</td>
+                    </tr>
+                    <tr style="background-color: #e74c3c;"> <!-- Bajo -->
+                        <td>Carlos Ruiz</td>
+                        <td>40</td>
+                        <td>Bajo</td>
+                        <td>Necesita Mayor Acompañamiento</td>
+                        <td>Uso de audiolibros y recursos visuales.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Proceso de Evaluación -->
+        <section class="results">
+            <h2>Resultados</h2>
+            <div class="color-legend">
+                <h4>Significado</h4>
+                <div><span class="color-box red"></span> Muy Avanzada</div>
+                <div><span class="color-box orange"></span> Necesita atención requerida</div>
+                <div><span class="color-box green"></span> Nivel adecuado</div>
+                <div><span class="color-box blue"></span> Sobresaliente</div>
+            </div>
+            <div class="semaforo">
+                <button class="light red" onclick="selectColor('rojo')">BAJO</button>
+                <button class="light orange" onclick="selectColor('amarillo')">BÁSICO</button>
+                <button class="light green" onclick="selectColor('verde')">ALTO</button>
+                <button class="light blue" onclick="selectColor('azul')">SUPERIOR</button>
+            </div>
+        </section>
+
+        <section class="solutions" id="disabilitySection" style="display: none;">
+            <h2 id="levelMessage"></h2>
+            <h3>Seleccione la Discapacidad del Estudiante</h3>
+            <select id="disabilitySelect" onchange="showActivities()" class="input-style">
+                <option value="">Seleccione una discapacidad...</option>
+                <option value="">Ninguna</option>
+                <option value="dislexia">Dislexia</option>
+                <option value="discalculia">Discalculia</option>
+                <option value="tdah">TDAH</option>
+                <option value="visual">Discapacidad Visual</option>
+            </select>
+            
+            <h3>Práctica de Pronunciación</h3>
+            <input type="text" id="wordInput" placeholder="Escribe la palabra aquí" class="input"/>
+            <button id="listenButton" onclick="playSound()" class="dynamic-button">Escuchar Palabra</button>
+            <button id="speakButton" onclick="startRecognition()" class="dynamic-button">Pronunciar</button>
+            <p id="feedback" style="color: red;"></p>
+        </section>
+
+        <section id="activitySection" style="display: none;">
+            <h2>Actividades y Soluciones</h2>
+            <ul id="activityList">
+                <li>Leer en voz alta diariamente.</li>
+                <li>Utilizar audiolibros.</li>
+                <li>Realizar juegos de palabras.</li>
+                <li>Practicar la escritura creativa.</li>
+                <li>Implementar lecturas guiadas.</li>
+                <li>Fomentar el uso de tarjetas de palabras.</li>
+                <li>Incorporar videos educativos.</li>
+                <li>Crear un diario de lectura.</li>
+                <li>Hacer uso de aplicaciones educativas.</li>
+                <li>Realizar actividades de comprensión lectora.</li>
+            </ul>
+            <div id="resources" style="display: none;">
+                <h3>Recursos Adicionales</h3>
+                <div id="videoContainer" style="text-align: center;"></div>
+                <div id="imageContainer" style="text-align: center;"></div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 - Medición de Habilidades de Lectura</p>
+    </footer>
+    <script src="./script.js"></script>
+</body>
+</html>
